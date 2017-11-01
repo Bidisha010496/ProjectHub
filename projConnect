@@ -1,0 +1,49 @@
+<?php
+    session_start();
+    function redirect($url, $statusCode = 303)
+    {
+        header('Location: ' . $url, true, $statusCode);
+        die();
+    }
+
+
+	$proj_topic=$_POST["project-topic"];
+	$proj_title=$_POST["project-title"];
+    $startDate=$_POST["start-date"];
+    $description=$_POST["project-description"];
+    $status=$_POST["project-status"];
+    $user='root';
+    $pass='';
+    $dbname='projecthub';
+
+	   if (1) {
+            $conn = new mysqli('localhost',$user,$pass,$dbname) or die("Connection failed");
+/*need to start from here */
+            $sql = "SELECT * FROM user WHERE '".$email_login."' = email";
+            $result = $conn->query($sql);
+            $row=mysqli_fetch_assoc($result);
+            if($row)
+            {
+                $password=$row["password"];
+                $_SESSION['id'] = $row["id"];
+            }
+            
+            if($password==$password_login)
+            {
+                //echo "correct password";
+                redirect('http://localhost/ProjectHub-master/landing.php');
+                 
+             
+
+            }
+            else{
+                 echo "<h1>Incorrect Password</h1>"; 
+                 redirect('index.html?id=1');
+              
+             }
+           
+
+        }
+	$conn->close();
+
+?>
